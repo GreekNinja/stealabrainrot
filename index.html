@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steal a Brainrot Wiki & Checklist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Style for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Active link styling */
+        .sidebar-link.active {
+            background-color: #e5e7eb; /* light gray */
+            color: #111827; /* dark gray */
+            font-weight: 600;
+        }
+        /* Styling for filter buttons */
+        .filter-btn.active {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        /* Styling for owned brainrot cards */
+        .brainrot-card.owned {
+            opacity: 0.6;
+            border-color: #22c55e; /* green-500 */
+            border-width: 2px;
+        }
+        /* Style for the checkbox */
+        .brainrot-checkbox {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 bg-white border-r border-gray-200 p-6 shadow-md md:sticky md:top-0 md:h-screen overflow-y-auto">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">S.A.B. Wiki</h1>
+            <nav>
+                <ul class="space-y-2" id="sidebar-nav">
+                    <li><a href="#about" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">About the Game</a></li>
+                    <li><a href="#brainrots" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Brainrots</a></li>
+                    <li><a href="#strategies" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Strategies</a></li>
+                    <li><a href="#crafting" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Crafting</a></li>
+                    <li><a href="#removed" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Removed</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-10">
+            <div class="max-w-5xl mx-auto">
+
+                <!-- About the Game Section -->
+                <section id="about" class="mb-12 scroll-mt-20">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">About Steal a Brainrot</h2>
+                        <p class="text-lg leading-relaxed text-gray-700 mb-4">
+                           Steal a Brainrot has a myriad of Italian brainrot characters across various rarities that determine the amount of money you can generate every second. Now, you must be very strategic while playing this game, as you need to choose what brainrot to purchase. Steal a Brainrot also applies select traits and mutations to brainrots to boost your money-making power.
+                        </p>
+                        <p class="text-lg leading-relaxed text-gray-700">
+                           Currently, Steal a Brainrot has 8 rarities of brainrots: Common, Rare, Epic, Legendary, Mythic, Brainrot God, Secret, and OG. There are a total of 150+ brainrots in Steal a Brainrot across these seven rarities, along with four mutation variants: Gold, Diamond, Rainbow, and Galaxy. Buying the best and rarest brainrots takes time, so you’ll have to start with common characters like Noobini Pizzanini. You will have to gradually work up the ladder to finally be able to buy the Secret brainrots like Nuclearo Dinossauro and Strawberry Elephant.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Brainrots Section -->
+                <section id="brainrots" class="mb-12 scroll-mt-20">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Brainrot Checklist</h2>
+                        
+                        <!-- Filter and Progress Bar -->
+                        <div class="mb-6 flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-gray-50 rounded-lg">
+                             <input type="text" id="search-input" placeholder="Search for a Brainrot..." class="w-full md:w-auto p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                            <div class="flex-shrink-0" id="progress-counter" class="font-semibold text-lg text-gray-800"></div>
+                            <div class="flex items-center gap-2">
+                                <button id="show-all-btn" class="filter-btn active px-4 py-2 rounded-lg transition-colors duration-200">All</button>
+                                <button id="show-owned-btn" class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-colors duration-200">Owned</button>
+                                <button id="show-missing-btn" class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-colors duration-200">Missing</button>
+                            </div>
+                        </div>
+                        
+                        <div id="brainrot-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Strategies Section -->
+                <section id="strategies" class="mb-12 scroll-mt-20">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Strategies & Tips</h2>
+                        <p class="mt-4 text-gray-700 leading-relaxed">
+                            New players should focus on Common Brainrots to learn the mechanics. Advanced players can try "Brainrot Chaining"—stealing multiple Brainrots in a single run for massive rewards, but with significantly increased risk.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Craft Machine Section -->
+                <section id="crafting" class="mb-12 scroll-mt-20">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Craft Machine Exclusives</h2>
+                        <p class="mt-4 text-gray-700 leading-relaxed mb-4">
+                            The following Brainrots can only be obtained through the Craft Machine.
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Bandito Axolito (Epic)</li>
+                            <li>La Karkerkar Combinasion (Secret)</li>
+                            <li>Tralaledon (Secret)</li>
+                            <li>Los Bros (Secret)</li>
+                            <li>Los Noobinis (Mythic)</li>
+                            <li>Las Capuchinas (Brainrot God)</li>
+                            <li>Anpali Babel (Brainrot God)</li>
+                            <li>Trenostruzzo Turbo 4000 (Brainrot God)</li>
+                            <li>Antonio (Brainrot God)</li>
+                            <li>Malamé Amaralé (Epic)</li>
+                            <li>Tirilikalika Tirilikalako (Legendary)</li>
+                            <li>Mangolini Parrocini (Epic)</li>
+                            <li>Piccioneta Machina (Brainrot God)</li>
+                            <li>Orcalarita Orcali (Brainrot God)</li>
+                            <li>Las Sis (Secret)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Removed Section -->
+                <section id="removed" class="mb-12 scroll-mt-20">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Removed Brainrots</h2>
+                        <p class="mt-4 text-gray-700 leading-relaxed mb-4">
+                            These Brainrots are no longer obtainable in the game.
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                           <li>Tung Tung Tung Sahur (Rare)</li>
+                           <li>Stautino Libertino (Brainrot God)</li>
+                           <li>Chimpanzini Spiderini (Secret)</li>
+                           <li>Gattatino Neonino (Brainrot God)</li>
+                        </ul>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const brainrotData = [
+            // Common
+            { name: "Noobini Pizzanini", rarity: "Common", price: "25", mps: "1" },
+            { name: "Lirili Larila", rarity: "Common", price: "250", mps: "3" },
+            { name: "Tim Cheese", rarity: "Common", price: "500", mps: "5" },
+            { name: "Fluriflura", rarity: "Common", price: "750", mps: "7", notes: "In Game: Frulli Frulla" },
+            { name: "Talpa di Fero", rarity: "Common", price: "1K", mps: "9", notes: "In Game: Talpa Di Ferro" },
+            { name: "Svinina Bombardino", rarity: "Common", price: "1.2K", mps: "10", notes: "In Game: Svinino Bonbondino" },
+            { name: "Pipi Kiwi", rarity: "Common", price: "1.5K", mps: "13" },
+            { name: "Racooni Jandelini", rarity: "Common", price: "1.3K", mps: "12" },
+            { name: "Pipi Corni", rarity: "Common", price: "1.9K", mps: "14", notes: "Limited (Fuse Machine)" },
+            // Rare
+            { name: "Trippi Troppi", rarity: "Rare", price: "2K", mps: "15", notes: "Shrimp Cat" },
+            { name: "Gangster Footera", rarity: "Rare", price: "4K", mps: "30", notes: "In Game: Gangster Footera Criminalera" },
+            { name: "Bandito Bobritto", rarity: "Rare", price: "4.5K", mps: "35", notes: "In Game: Bobrito Bandito" },
+            { name: "Boneca Ambalabu", rarity: "Rare", price: "5K", mps: "40" },
+            { name: "Il Cacto Hipopotamo", rarity: "Rare", price: "6.5K", mps: "50" },
+            { name: "Pipi Avocado", rarity: "Rare", price: "9.5K", mps: "70", notes: "Limited (Fuse Machine)" },
+            { name: "Ta Ta Ta Ta Sahur", rarity: "Rare", price: "7.5K", mps: "55", notes: "In Game: Ta Ta Ta Ta Ta Ta Ta Sahur" },
+            { name: "Tric Trac Baraboom", rarity: "Rare", price: "9K", mps: "65" },
+            // Epic
+            { name: "Cappucino Assassino", rarity: "Epic", price: "10K", mps: "75" },
+            { name: "Bandito Axolito", rarity: "Epic", price: "12.5K", mps: "90" },
+            { name: "Brr Brr Patapim", rarity: "Epic", price: "15K", mps: "100" },
+            { name: "Avocadini Antilopini", rarity: "Epic", price: "17.5k", mps: "115" },
+            { name: "Trulimero Trulicina", rarity: "Epic", price: "20K", mps: "125" },
+            { name: "Bambini Crostini", rarity: "Epic", price: "22.5K", mps: "135" },
+            { name: "Bananita Dolphinita", rarity: "Epic", price: "25K", mps: "150", notes: "In Game: Bananita Dolfinita" },
+            { name: "Perochello Lemonchello", rarity: "Epic", price: "27.5K", mps: "160" },
+            { name: "Brri Brri Bicus Dicus Bombicus", rarity: "Epic", price: "30K", mps: "175", notes: "In Game: Bri Bri Bicus Dicus De Bicus De Dicus" },
+            { name: "Avocadini Guffo", rarity: "Epic", price: "35K", mps: "225" },
+            { name: "Ti Ti Ti Sahur", rarity: "Epic", price: "37.5K", mps: "225", notes: "Limited (Fuse Machine)" },
+            { name: "Salamino Penguino", rarity: "Epic", price: "40K", mps: "250" },
+            { name: "Penguino Cocosino", rarity: "Epic", price: "45K", mps: "300", notes: "Limited (Fuse Machine)" },
+            // Legendary
+            { name: "Burbaloni LoliLoli", rarity: "Legendary", price: "35K", mps: "200", notes: "In Game: Burrbaloni Lulliloli" },
+            { name: "Chimpanzini Bananini", rarity: "Legendary", price: "50K", mps: "300" },
+            { name: "Ballerina Cappuccina", rarity: "Legendary", price: "100K", mps: "500" },
+            { name: "Chef Crabracadabra", rarity: "Legendary", price: "150K", mps: "600" },
+            { name: "Lionel Cactuseli", rarity: "Legendary", price: "175K", mps: "650", notes: "In Game: Leonelli Cactuselli" },
+            { name: "Glorbo Fruttodrillo", rarity: "Legendary", price: "200K", mps: "750" },
+            { name: "Quivioli Ameleonni", rarity: "Legendary", price: "225K", mps: "900" },
+            { name: "Blueberrini Octopussini", rarity: "Legendary", price: "250K", mps: "1k" },
+            { name: "Strawberelli Flamingelli", rarity: "Legendary", price: "275K", mps: "1.1K" },
+            { name: "Pandaccini Bananini", rarity: "Legendary", price: "300K", mps: "1.2K" },
+            { name: "Pipi Watermelon", rarity: "Legendary", price: "310K", mps: "1.3K", notes: "Limited (Fuse Machine)" },
+            { name: "Cocossini Mama", rarity: "Legendary", price: "285K", mps: "1.2K", notes: "Limited (Fuse Machine)" },
+            { name: "Sigma Boy", rarity: "Legendary", price: "325K", mps: "1.3K" },
+            { name: "Pipi Potato", rarity: "Legendary", price: "265K", mps: "1.1K" },
+            // Mythic
+            { name: "Frigo Camelo", rarity: "Mythic", price: "350K", mps: "1.4K" },
+            { name: "Orangutini Ananasini", rarity: "Mythic", price: "400K", mps: "1.7K" },
+            { name: "Rhino Toasterino", rarity: "Mythic", price: "450K", mps: "2.1K" },
+            { name: "Bombardiro Crocodillo", rarity: "Mythic", price: "500K", mps: "2.5K" },
+            { name: "Bombombini Gusini", rarity: "Mythic", price: "1M", mps: "5K" },
+            { name: "Avocadorilla", rarity: "Mythic", price: "2M", mps: "7K", notes: "Limited (Fuse Machine), In Game: Abonono Schimpanzinono" },
+            { name: "Cavallo Virtuoso", rarity: "Mythic", price: "2.5M", mps: "7.5K", notes: "In Game: Ecco Cavallo Virtuoso" },
+            { name: "Gorillo Watermellondrillo", rarity: "Mythic", price: "3M", mps: "8K" },
+            { name: "Te Te Te Sahur", rarity: "Mythic", price: "2.5M", mps: "9.5K" },
+            { name: "Tob Tobi Tobi", rarity: "Mythic", price: "3.5M", mps: "8.5K", notes: "Limited (Fuse Machine), In Game: Tob Tobi Tob" },
+            { name: "Ganganzelli Trulala", rarity: "Mythic", price: "4M", mps: "9K", notes: "Limited (Fuse Machine)" },
+            { name: "Tracotucotulu Delapeladustuz", rarity: "Mythic", price: "3M", mps: "12K" },
+            { name: "Lerulerulerule", rarity: "Mythic", price: "3.5M", mps: "8.7K" },
+            // Mythic Lucky Block
+            { name: "Špijuniro Golubiro", rarity: "Mythic Lucky Block", price: "750K", mps: "3.5K", notes: "40% Chance" },
+            { name: "Zibra Zubra Zibralini", rarity: "Mythic Lucky Block", price: "1M", mps: "6K", notes: "30% Chance" },
+            { name: "Tigrullini Watermellini", rarity: "Mythic Lucky Block", price: "1M", mps: "6.5K", notes: "30% Chance" },
+            { name: "Carrotini Brainini", rarity: "Mythic Lucky Block", price: "4.7M", mps: "15K", notes: "10% Chance" },
+            // Brainrot God
+            { name: "Cocofanto Elefanto", rarity: "Brainrot God", price: "5M", mps: "17.5K" },
+            { name: "Girafa Celestre", rarity: "Brainrot God", price: "7.5M", mps: "20K" },
+            { name: "Chihuahini Taconini", rarity: "Brainrot God", price: "8.5M", mps: "45K", image: "" },
+            { name: "Tralalero Tralala", rarity: "Brainrot God", price: "10M", mps: "50K" },
+            { name: "Los Crocodilitos", rarity: "Brainrot God", price: "12.5M", mps: "55K", notes: "Spawned during Bombardiro Crocodilo ritual" },
+            { name: "Los Orcaleritos", rarity: "Brainrot God", price: "45M", mps: "235K", notes: "Spawned during Orcalero Orcala ritual (Fuse Machine)" },
+            { name: "Odin Din Din Dun", rarity: "Brainrot God", price: "15M", mps: "75K", notes: "In Game: U Din Din Din Din Dun Ma Din Din Din Dun" },
+            { name: "Tukanno Bananno", rarity: "Brainrot God", price: "22.5M", mps: "100K", notes: "Fuse Machine" },
+            { name: "Trenostruzzo Turbo 3000", rarity: "Brainrot God", price: "25M", mps: "175K" },
+            { name: "Tralalita Tralala", rarity: "Brainrot God", price: "20M", mps: "100K" },
+            { name: "Trippi Troppi Troppa Trippa", rarity: "Brainrot God", price: "30M", mps: "175K", notes: "Fish, bear" },
+            { name: "Ballerino Lololo", rarity: "Brainrot God", price: "35M", mps: "200K" },
+            { name: "Piccione Macchina", rarity: "Brainrot God", price: "40M", mps: "225K" },
+            { name: "Tartaruga Cisterna", rarity: "Brainrot God", price: "45M", mps: "250K" },
+            { name: "PakRahmatmamat", rarity: "Brainrot God", price: "37.5M", mps: "215K" },
+            { name: "Los Bombinitos", rarity: "Brainrot God", price: "42.5M", mps: "205K", notes: "Admin Abuse" },
+            { name: "Brr Es Teh Patipum", rarity: "Brainrot God", price: "40M", mps: "225k", notes: "Fuse Machine" },
+            // Brainrot God Lucky Block
+            { name: "Tigroligre Frutonni", rarity: "Brainrot God Lucky Block", price: "25M", mps: "60K", notes: "60% Chance" },
+            { name: "Orcalero Orcala", rarity: "Brainrot God Lucky Block", price: "25M", mps: "100K", notes: "30% Chance" },
+            { name: "Bulbito Bandito Traktorito", rarity: "Brainrot God Lucky Block", price: "25M", mps: "205K", notes: "10% Chance" },
+            { name: "Il Mastodontico Telepiedone Planetario", rarity: "Brainrot God Lucky Block", price: "47.5M", mps: "275,000", notes: "5% Chance, In Game: mastodontico telepiedone" },
+            // Brainrot God Limited
+            { name: "Matteo", rarity: "Brainrot God", price: "10M", mps: "50K", notes: "Limited (Admin Abuse), In Game: Matteooooooooooooooo" },
+            { name: "Statutino Libertino", rarity: "Brainrot God", price: "20M", mps: "75K", notes: "Limited" },
+            { name: "Espresso Signora", rarity: "Brainrot God", price: "15M", mps: "70K", notes: "Limited (Admin Abuse), In Game: Espressona Signora" },
+            { name: "Gattatino Nyanino", rarity: "Brainrot God", price: "7.5M", mps: "35K", notes: "Limited (Admin Abuse)" },
+            { name: "Unclito Samito", rarity: "Brainrot God", price: "20M", mps: "75K", notes: "Limited" },
+            { name: "Los Tungtungtungcitos Dicen Sahur", rarity: "Brainrot God", price: "37.5M", mps: "205K", notes: "Limited (Fuse Machine)" },
+            { name: "Bombardini Tortini", rarity: "Brainrot God", price: "50M", mps: "240K", notes: "Limited (Feed Sammy 15 Tacos)" },
+            { name: "Tiki Toki Tipi Topi Taco Tapir", rarity: "Brainrot God", price: "20M", mps: "75K", notes: "Limited (Feed Sammy 15 Tacos)" },
+            { name: "Extinct Ballerina", rarity: "Brainrot God", price: "N/A", mps: "N/A", notes: "Limited (Admin Abuse)" },
+            // Secret
+            { name: "La Vacca Saturno Saturnita", rarity: "Secret", price: "50M", mps: "300K" },
+            { name: "Il Bisonte Giuppitere Giuppitercito", rarity: "Secret", price: "75M", mps: "300K" },
+            { name: "Black Hole Goat", rarity: "Secret", price: "75M", mps: "400K" },
+            { name: "Sammyni Spiderini", rarity: "Secret", price: "100M", mps: "325K" },
+            { name: "Los Spyderinis", rarity: "Secret", price: "175M", mps: "465K" },
+            { name: "Los Tralaleritos Dicen Tralala", rarity: "Secret", price: "100M", mps: "500K", notes: "In Game: Los Tralaleritos" },
+            { name: "Las Tralaleritas Dicen Tralali", rarity: "Secret", price: "150M", mps: "650K", notes: "In Game: Las Tralaleritas" },
+            { name: "Las Vaquitas Saturnitas Dicen Mu", rarity: "Secret", price: "200M", mps: "750K" },
+            { name: "Graipusi Medussi", rarity: "Secret", price: "250M", mps: "1M" },
+            { name: "Chicleteira Bicicleteira", rarity: "Secret", price: "750M", mps: "3.5M" },
+            { name: "Trippa Troppa Tralala...", rarity: "Secret", price: "1B", mps: "10M", notes: "In Game: La Grande Combinasion" },
+            { name: "Nuclearo Dinossauro", rarity: "Secret", price: "2B", mps: "15M" },
+            { name: "Los Hotspotsitos", rarity: "Secret", price: "3B", mps: "20M" },
+            { name: "Los Matteos", rarity: "Secret", price: "100M", mps: "300K" },
+            { name: "Garama and Madudungdung", rarity: "Secret", price: "10B", mps: "50M", notes: "In Game: Garamararam..." },
+            { name: "Dragon Canneloni", rarity: "Secret", price: "100B", mps: "100M", notes: "In Game: Canneloni Dragoni" },
+            { name: "Job Job Job Sahur", rarity: "Secret", price: "175M", mps: "700K" },
+            { name: "Shtekerito el Bulbonito", rarity: "Secret", price: "Unknown", mps: "2M" },
+            { name: "La Supreme Combinasion", rarity: "Secret", price: "7B", mps: "40M" },
+            { name: "Ketupat Kepat", rarity: "Secret", price: "5B", mps: "35M", notes: "(Admin Abuse) In Game: Ketupat Kepat..." },
+            { name: "Hipopotamino Supermarketino", rarity: "Secret", price: "150B", mps: "500M", notes: "Admin Abuse" },
+            { name: "Froggino Frullatorino", rarity: "Secret", price: "69B", mps: "750M", notes: "Admin Abuse" },
+            // Secret Lucky Block
+            { name: "Tortuginni Dragonfrutinni", rarity: "Secret Lucky Block", price: "750M", mps: "350K", notes: "75% Chance" },
+            { name: "Pot Hotspot", rarity: "Secret Lucky Block", price: "750M", mps: "2.5M", notes: "14% Chance" },
+            { name: "La Esok Sekolah", rarity: "Secret Lucky Block", price: "750M", mps: "30M", notes: "5% Chance" },
+            { name: "Spaghetti Tualetti", rarity: "Secret Lucky Block", price: "750M", mps: "60M", notes: "1% Chance" },
+            // Secret Limited
+            { name: "Agarrini la Palini", rarity: "Secret", price: "80M", mps: "425K", notes: "Limited (Fuse Machine)" },
+            { name: "Los Combinasionas", rarity: "Secret", price: "2B", mps: "15M", notes: "Limited (Fuse Machine)" },
+            { name: "Karkerkurkarkarkarkurkurkur", rarity: "Secret", price: "100M", mps: "300K", notes: "Limited (Admin Abuse), In Game: Karkerkar Kurkur" },
+            { name: "Nooo My Hotspot", rarity: "Secret", price: "300M", mps: "1.5M", notes: "Limited (Feed Sammy 15 Tacos), a.k.a Burito Hotspotini" },
+            { name: "AsoItlowride", rarity: "Secret", price: "N/A", mps: "300K", notes: "Limited (Admin Abuse)" },
+            { name: "Extinct Tralalero", rarity: "Secret", price: "N/A", mps: "N/A", notes: "Limited (Admin Abuse)" },
+            { name: "Extinct Matteo", rarity: "Secret", price: "N/A", mps: "N/A", notes: "Limited (Admin Abuse)" },
+            { name: "La Extinct Grande", rarity: "Secret", price: "N/A", mps: "N/A", notes: "Limited (Give Sammy Extinct Ballerina, Tralalero, and Matteo)" },
+            // OG
+            { name: "Strawberry Elephant", rarity: "OG", price: "N/A", mps: "N/A" },
+            { name: "Smurf Cat", rarity: "OG", price: "N/A", mps: "N/A", notes: "SECRET RITUAL" },
+            { name: "John Pork", rarity: "OG", price: "N/A", mps: "N/A", notes: "SECRET RITUAL" },
+            { name: "Skibidi Toilet", rarity: "OG", price: "N/A", mps: "N/A", notes: "SECRET RITUAL" },
+            // Admin
+            { name: "Carlooooooooo", rarity: "Admin Lucky Block", price: "N/A", mps: "N/A" },
+            { name: "Alessio", rarity: "Admin Lucky Block", price: "17.5M", mps: "85K" },
+            { name: "Guerrero Digitale", rarity: "Admin Lucky Block", price: "N/A", mps: "N/A", notes: "In Game: Guerriro Digitale" },
+            { name: "67", rarity: "Admin Lucky Block", price: "1.2B", mps: "7.5M" },
+            // Exclusive
+            { name: "Urubini Flamenguini", rarity: "Exclusive", price: "30M", mps: "150K" },
+            { name: "Dul Dul Dul Dul Dul Gundul Kuntul", rarity: "Exclusive", price: "150M", mps: "375K" }
+        ];
+
+        const rarityColors = {
+            "Common": "text-gray-600",
+            "Rare": "text-blue-600",
+            "Epic": "text-purple-600",
+            "Legendary": "text-amber-600",
+            "Mythic": "text-red-600",
+            "Brainrot God": "text-teal-500",
+            "Secret": "text-cyan-400",
+            "OG": "text-pink-500",
+            "Admin Lucky Block": "text-indigo-500",
+            "Exclusive": "text-rose-500"
+        };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('brainrot-grid');
+            const progressCounter = document.getElementById('progress-counter');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const searchInput = document.getElementById('search-input');
+
+            let ownedBrainrots = JSON.parse(localStorage.getItem('ownedBrainrots')) || [];
+
+            function getCleanRarity(rarity) {
+                if (rarity.includes('Mythic')) return 'Mythic';
+                if (rarity.includes('Brainrot God')) return 'Brainrot God';
+                if (rarity.includes('Secret')) return 'Secret';
+                if (rarity.includes('Admin')) return 'Admin Lucky Block';
+                return rarity;
+            }
+
+            function createCard(brainrot) {
+                const card = document.createElement('div');
+                card.className = 'brainrot-card border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow relative flex flex-col';
+                card.dataset.name = brainrot.name;
+
+                const isOwned = ownedBrainrots.includes(brainrot.name);
+                const cleanRarity = getCleanRarity(brainrot.rarity);
+                const colorClass = rarityColors[cleanRarity] || 'text-gray-800';
+
+                card.innerHTML = `
+                    <div class="flex-grow">
+                        <input type="checkbox" class="brainrot-checkbox absolute top-3 right-3 h-5 w-5" ${isOwned ? 'checked' : ''}>
+                        <h3 class="text-xl font-semibold ${colorClass} pr-8">${brainrot.name}</h3>
+                        <p class="text-sm text-gray-500 mb-2">${brainrot.rarity}</p>
+                        ${brainrot.image ? `<div class="my-2">${brainrot.image}</div>` : ''}
+                        ${brainrot.notes ? `<p class="text-xs text-gray-600 italic mt-1">${brainrot.notes}</p>` : ''}
+                    </div>
+                    <div class="mt-auto pt-2 border-t border-gray-200">
+                        <p class="text-sm text-gray-700"><span class="font-semibold">Buy Price:</span> ${brainrot.price}</p>
+                        <p class="text-sm text-gray-700"><span class="font-semibold">MPS:</span> ${brainrot.mps}</p>
+                    </div>
+                `;
+
+                if (isOwned) {
+                    card.classList.add('owned');
+                }
+
+                const checkbox = card.querySelector('.brainrot-checkbox');
+                checkbox.addEventListener('change', () => {
+                    const name = card.dataset.name;
+                    if (checkbox.checked) {
+                        if (!ownedBrainrots.includes(name)) ownedBrainrots.push(name);
+                    } else {
+                        ownedBrainrots = ownedBrainrots.filter(b => b !== name);
+                    }
+                    card.classList.toggle('owned', checkbox.checked);
+                    saveOwned();
+                    updateCounter();
+                    applyFilters(); 
+                });
+
+                return card;
+            }
+
+            function renderCards() {
+                grid.innerHTML = '';
+                brainrotData.forEach(b => grid.appendChild(createCard(b)));
+                updateCounter();
+                applyFilters();
+            }
+
+            function updateCounter() {
+                progressCounter.textContent = `Collected: ${ownedBrainrots.length} / ${brainrotData.length}`;
+            }
+
+            function saveOwned() {
+                localStorage.setItem('ownedBrainrots', JSON.stringify(ownedBrainrots));
+            }
+            
+            function applyFilters() {
+                const allCards = document.querySelectorAll('.brainrot-card');
+                const activeFilterBtn = document.querySelector('.filter-btn.active');
+                const filter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+                const searchTerm = searchInput.value.toLowerCase();
+
+                allCards.forEach(card => {
+                    const isOwned = card.classList.contains('owned');
+                    const name = card.dataset.name.toLowerCase();
+
+                    const matchesFilter = (filter === 'all') || (filter === 'owned' && isOwned) || (filter === 'missing' && !isOwned);
+                    const matchesSearch = name.includes(searchTerm);
+
+                    if (matchesFilter && matchesSearch) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-blue-600', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-800');
+                    });
+                    e.currentTarget.classList.add('active', 'bg-blue-600', 'text-white');
+                    e.currentTarget.classList.remove('bg-gray-200', 'text-gray-800');
+                    
+                    applyFilters();
+                });
+                if(button.id === 'show-all-btn') button.dataset.filter = 'all';
+                if(button.id === 'show-owned-btn') button.dataset.filter = 'owned';
+                if(button.id === 'show-missing-btn') button.dataset.filter = 'missing';
+            });
+
+            searchInput.addEventListener('input', applyFilters);
+
+            // Initial Render
+            renderCards();
+        });
+
+
+        // --- Sidebar scroll spy Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+            
+            const observer = new IntersectionObserver((entries) => {
+                 entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         const activeLink = document.querySelector(`.sidebar-link[href="#${entry.target.id}"]`);
+                         navLinks.forEach(link => link.classList.remove('active'));
+                         if(activeLink) {
+                             activeLink.classList.add('active');
+                         }
+                     }
+                 });
+            }, { threshold: 0.5 }); 
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
+
