@@ -417,7 +417,7 @@
             brainrotData.forEach(brainrot => {
                 if (!brainrot.image) {
                     const imageName = encodeURIComponent(brainrot.name);
-                    brainrot.image = `<img src='https://placehold.co/200x100/e5e7eb/4b5563?text=${imageName}' alt='${brainrot.name}' class='rounded-sm w-full h-auto object-cover mt-2 border-2 border-gray-300'>`;
+                    brainrot.image = `<div class="bg-gray-200 rounded-sm mt-2 border-2 border-gray-300 p-2"><img src='https://api.dicebear.com/8.x/bottts/svg?seed=${imageName}' alt='${brainrot.name}' class='w-full h-auto object-cover'></div>`;
                 }
             });
 
