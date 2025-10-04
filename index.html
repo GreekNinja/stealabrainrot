@@ -7,51 +7,124 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* --- General & Custom Roblox Block Theme --- */
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* sky-100 */
         }
-        /* Style for smooth scrolling */
         html {
             scroll-behavior: smooth;
         }
-        /* Active link styling */
-        .sidebar-link.active {
-            background-color: #e5e7eb; /* light gray */
-            color: #111827; /* dark gray */
-            font-weight: 600;
+        .main-header {
+            color: #0369a1; /* sky-700 */
         }
-        /* Styling for filter buttons */
-        .filter-btn.active {
-            background-color: #3b82f6; /* blue-500 */
-            color: white;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+
+        /* --- Panel & Card Styling --- */
+        .roblox-panel {
+            background-color: white;
+            border: 2px solid #d4d4d8; /* gray-300 */
+            border-bottom-width: 5px;
+            border-right-width: 5px;
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 2rem;
+            box-shadow: none;
         }
-        /* Styling for owned brainrot cards */
+
+        .brainrot-card {
+            background-color: #fafafa; /* gray-50 */
+            border: 2px solid #d4d4d8; /* gray-300 */
+            border-bottom-width: 5px;
+            border-right-width: 5px;
+            transition: transform 0.15s ease-out;
+        }
+        .brainrot-card:hover {
+            transform: translateY(-3px) translateX(-1px);
+            border-color: #a1a1aa; /* gray-400 */
+        }
         .brainrot-card.owned {
-            opacity: 0.6;
+            opacity: 0.7;
+            background-color: #f0fdf4; /* green-50 */
             border-color: #22c55e; /* green-500 */
-            border-width: 2px;
         }
-        /* Style for the checkbox */
+
+        /* --- Sidebar Styling --- */
+        .sidebar {
+            background-color: #e5e7eb; /* gray-200 */
+            border-right: 2px solid #d4d4d8;
+        }
+        .sidebar-link {
+            border-radius: 0.375rem; /* rounded-md */
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .sidebar-link:hover {
+            background-color: #d4d4d8; /* gray-300 */
+        }
+        .sidebar-link.active {
+            background-color: white;
+            color: #111827; /* dark gray */
+            font-weight: 700;
+            border: 2px solid #d4d4d8;
+            border-bottom-width: 4px;
+            border-right-width: 4px;
+        }
+
+        /* --- Filter Buttons & Inputs Styling --- */
+        .filter-btn {
+            border-radius: 0.375rem;
+            font-weight: 600;
+            background-color: white;
+            border: 2px solid #d4d4d8;
+            border-bottom-width: 4px;
+            transition: all 0.1s ease-in-out;
+        }
+        .filter-btn:hover {
+            background-color: #f4f4f5; /* gray-100 */
+        }
+        .filter-btn.active {
+            background-color: #0ea5e9; /* sky-500 */
+            color: white;
+            border-color: #0284c7; /* sky-600 */
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+        }
+
+        #search-input {
+            border-width: 2px;
+            border-radius: 0.375rem;
+            border-color: #d4d4d8;
+        }
+        #search-input:focus {
+            border-color: #0ea5e9; /* sky-500 */
+            box-shadow: none;
+            outline: none;
+        }
+
+        /* --- Checkbox Styling --- */
         .brainrot-checkbox {
             cursor: pointer;
-            transform: scale(1.2);
+            transform: scale(1.4);
+            border-radius: 4px;
+            border-color: #a1a1aa;
+        }
+        .brainrot-checkbox:checked {
+            background-color: #0ea5e9;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="text-gray-900">
 
     <div class="flex flex-col md:flex-row min-h-screen">
         <!-- Sidebar Navigation -->
-        <aside class="w-full md:w-64 bg-white border-r border-gray-200 p-6 shadow-md md:sticky md:top-0 md:h-screen overflow-y-auto">
+        <aside class="sidebar w-full md:w-64 p-6 md:sticky md:top-0 md:h-screen overflow-y-auto">
             <h1 class="text-2xl font-bold text-gray-800 mb-6">S.A.B. Wiki</h1>
             <nav>
                 <ul class="space-y-2" id="sidebar-nav">
-                    <li><a href="#about" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">About the Game</a></li>
-                    <li><a href="#brainrots" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Brainrots</a></li>
-                    <li><a href="#strategies" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Strategies</a></li>
-                    <li><a href="#crafting" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Crafting</a></li>
-                    <li><a href="#removed" class="sidebar-link block px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200">Removed</a></li>
+                    <li><a href="#about" class="sidebar-link block px-4 py-2">About the Game</a></li>
+                    <li><a href="#brainrots" class="sidebar-link block px-4 py-2">Brainrots</a></li>
+                    <li><a href="#strategies" class="sidebar-link block px-4 py-2">Strategies</a></li>
+                    <li><a href="#crafting" class="sidebar-link block px-4 py-2">Crafting</a></li>
+                    <li><a href="#removed" class="sidebar-link block px-4 py-2">Removed</a></li>
                 </ul>
             </nav>
         </aside>
@@ -62,8 +135,8 @@
 
                 <!-- About the Game Section -->
                 <section id="about" class="mb-12 scroll-mt-20">
-                    <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">About Steal a Brainrot</h2>
+                    <div class="roblox-panel">
+                        <h2 class="main-header text-3xl font-bold mb-4 border-b pb-2">About Steal a Brainrot</h2>
                         <p class="text-lg leading-relaxed text-gray-700 mb-4">
                            Steal a Brainrot has a myriad of Italian brainrot characters across various rarities that determine the amount of money you can generate every second. Now, you must be very strategic while playing this game, as you need to choose what brainrot to purchase. Steal a Brainrot also applies select traits and mutations to brainrots to boost your money-making power.
                         </p>
@@ -75,17 +148,17 @@
 
                 <!-- Brainrots Section -->
                 <section id="brainrots" class="mb-12 scroll-mt-20">
-                    <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Brainrot Checklist</h2>
+                    <div class="roblox-panel">
+                        <h2 class="main-header text-3xl font-bold mb-4 border-b pb-2">Brainrot Checklist</h2>
                         
                         <!-- Filter and Progress Bar -->
                         <div class="mb-6 flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-gray-50 rounded-lg">
-                             <input type="text" id="search-input" placeholder="Search for a Brainrot..." class="w-full md:w-auto p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                             <input type="text" id="search-input" placeholder="Search for a Brainrot..." class="w-full md:w-auto p-2 transition">
                             <div class="flex-shrink-0" id="progress-counter" class="font-semibold text-lg text-gray-800"></div>
                             <div class="flex items-center gap-2">
-                                <button id="show-all-btn" class="filter-btn active px-4 py-2 rounded-lg transition-colors duration-200">All</button>
-                                <button id="show-owned-btn" class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-colors duration-200">Owned</button>
-                                <button id="show-missing-btn" class="filter-btn bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-colors duration-200">Missing</button>
+                                <button id="show-all-btn" class="filter-btn active px-4 py-2">All</button>
+                                <button id="show-owned-btn" class="filter-btn px-4 py-2">Owned</button>
+                                <button id="show-missing-btn" class="filter-btn px-4 py-2">Missing</button>
                             </div>
                         </div>
                         
@@ -97,8 +170,8 @@
                 
                 <!-- Strategies Section -->
                 <section id="strategies" class="mb-12 scroll-mt-20">
-                    <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Strategies & Tips</h2>
+                    <div class="roblox-panel">
+                        <h2 class="main-header text-3xl font-bold mb-4 border-b pb-2">Strategies & Tips</h2>
                         <p class="mt-4 text-gray-700 leading-relaxed">
                             New players should focus on Common Brainrots to learn the mechanics. Advanced players can try "Brainrot Chaining"—stealing multiple Brainrots in a single run for massive rewards, but with significantly increased risk.
                         </p>
@@ -107,8 +180,8 @@
 
                 <!-- Craft Machine Section -->
                 <section id="crafting" class="mb-12 scroll-mt-20">
-                    <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Craft Machine Exclusives</h2>
+                    <div class="roblox-panel">
+                        <h2 class="main-header text-3xl font-bold mb-4 border-b pb-2">Craft Machine Exclusives</h2>
                         <p class="mt-4 text-gray-700 leading-relaxed mb-4">
                             The following Brainrots can only be obtained through the Craft Machine.
                         </p>
@@ -134,8 +207,8 @@
 
                 <!-- Removed Section -->
                 <section id="removed" class="mb-12 scroll-mt-20">
-                    <div class="bg-white p-8 rounded-xl shadow-lg">
-                        <h2 class="text-3xl font-bold mb-4 border-b pb-2">Removed Brainrots</h2>
+                    <div class="roblox-panel">
+                        <h2 class="main-header text-3xl font-bold mb-4 border-b pb-2">Removed Brainrots</h2>
                         <p class="mt-4 text-gray-700 leading-relaxed mb-4">
                             These Brainrots are no longer obtainable in the game.
                         </p>
@@ -224,7 +297,7 @@
             // Brainrot God
             { name: "Cocofanto Elefanto", rarity: "Brainrot God", price: "5M", mps: "17.5K" },
             { name: "Girafa Celestre", rarity: "Brainrot God", price: "7.5M", mps: "20K" },
-            { name: "Chihuahini Taconini", rarity: "Brainrot God", price: "8.5M", mps: "45K", image: "" },
+            { name: "Chihuahini Taconini", rarity: "Brainrot God", price: "8.5M", mps: "45K", image: "<img src='https://placehold.co/200x100/e2e8f0/475569?text=Chihuahua+Taco' alt='Chihuahini Taconini' class='rounded'>" },
             { name: "Tralalero Tralala", rarity: "Brainrot God", price: "10M", mps: "50K" },
             { name: "Los Crocodilitos", rarity: "Brainrot God", price: "12.5M", mps: "55K", notes: "Spawned during Bombardiro Crocodilo ritual" },
             { name: "Los Orcaleritos", rarity: "Brainrot God", price: "45M", mps: "235K", notes: "Spawned during Orcalero Orcala ritual (Fuse Machine)" },
@@ -337,7 +410,7 @@
 
             function createCard(brainrot) {
                 const card = document.createElement('div');
-                card.className = 'brainrot-card border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow relative flex flex-col';
+                card.className = 'brainrot-card p-4 rounded-lg relative flex flex-col';
                 card.dataset.name = brainrot.name;
 
                 const isOwned = ownedBrainrots.includes(brainrot.name);
@@ -418,12 +491,9 @@
             filterButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
                     filterButtons.forEach(btn => {
-                        btn.classList.remove('active', 'bg-blue-600', 'text-white');
-                        btn.classList.add('bg-gray-200', 'text-gray-800');
+                        btn.classList.remove('active');
                     });
-                    e.currentTarget.classList.add('active', 'bg-blue-600', 'text-white');
-                    e.currentTarget.classList.remove('bg-gray-200', 'text-gray-800');
-                    
+                    e.currentTarget.classList.add('active');
                     applyFilters();
                 });
                 if(button.id === 'show-all-btn') button.dataset.filter = 'all';
